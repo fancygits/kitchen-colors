@@ -283,3 +283,49 @@ button.pill-dot {
   color: #6B716D;
   padding: 0 4px;
 }
+
+/* ── Mobile overrides ── */
+@media (max-width: 600px) {
+  .canvas-card {
+    flex: 1 1 100%;
+    min-width: 0;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  button {
+    padding: 7px 13px;   /* slightly taller for touch targets */
+  }
+
+  .row-wrap {
+    gap: 8px;
+  }
+
+  .pill-group {
+    gap: 4px;
+  }
+
+  .edit-section {
+    gap: 10px;
+  }
+
+  .status-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .brush-row input[type=range] {
+    max-width: none;   /* let slider fill available space */
+  }
+
+  .panel-card {
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .swatch-btn {
+    width: 38px;
+    height: 38px;   /* slightly larger touch target */
+  }
+}

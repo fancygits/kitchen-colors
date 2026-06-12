@@ -1,9 +1,9 @@
 // Data: static angle/palette definitions, storage helpers, image loader
 
 export const ANGLES = [
-  { id: 'gen1', label: 'View 1', photo: 'uploads/gen-kitchen-1.png', masks: 'masks/gen1' },
-  { id: 'gen2', label: 'View 2', photo: 'uploads/gen-kitchen-2.png', masks: 'masks/gen2' },
-  { id: 'gen3', label: 'View 3', photo: 'uploads/gen-kitchen-3.png', masks: 'masks/gen3' },
+  { id: 'gen1', label: 'View 1', photo: 'uploads/gen-kitchen-1.jpg', masks: 'masks/gen1' },
+  { id: 'gen2', label: 'View 2', photo: 'uploads/gen-kitchen-2.jpg', masks: 'masks/gen2' },
+  { id: 'gen3', label: 'View 3', photo: 'uploads/gen-kitchen-3.jpg', masks: 'masks/gen3' },
 ];
 
 export const DEFAULT_CABINET = [

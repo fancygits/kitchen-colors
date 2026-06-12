@@ -102,7 +102,7 @@ downloadBtn.addEventListener('click', () => {
     const a=document.createElement('a');
     a.href=URL.createObjectURL(blob); a.download='kitchen-colors.jpg'; a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href),5000);
-  },'image/jpeg',0.92);
+  },'image/jpeg',0.85);
 });
 
 editToggleBtn.addEventListener('click', () => {
