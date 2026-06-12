@@ -1,0 +1,29 @@
+index.html
+  s_98079205497f25::t_570236341142d7 36
+styles/components.css
+  s_98079205497f25::t_48100aa354f763 286-331
+scripts/data.js
+  s_98079205497f25::t_958f5fa20f6a3a 4-6
+styles/layout.css
+  s_98079205497f25::t_9674050465f8ad 30-40
+styles/base.css
+  s_98079205497f25::t_675baa1a428018 34-50
+scripts/events.js
+  s_98079205497f25::t_b448568ad86579 105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "f2e9ab4a69ded55b94ce2155813084ada916f3a1",
+  "prompts": {},
+  "sessions": {
+    "s_98079205497f25": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "55537452-6556-4812-9232-c52bf7f8d2cb",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Luke Johnson <ljohnson@splashfinancial.com>"
+    }
+  }
+}
