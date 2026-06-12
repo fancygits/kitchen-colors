@@ -1,0 +1,285 @@
+/* Components: discrete UI pieces — canvas card, buttons, panels, swatches, forms */
+
+/* ── Canvas card ── */
+.canvas-card {
+  flex: 1 1 560px;
+  min-width: 420px;
+  background: #fff;
+  border: 1px solid #E5E5E5;
+  border-radius: 16px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.10);
+  padding: 12px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  touch-action: none;
+}
+
+/* ── Angle tabs ── */
+.angle-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 4px 2px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.angle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B716D;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-right: 4px;
+}
+
+/* ── Edit section ── */
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid #E5E5E5;
+  margin-top: 12px;
+  padding: 12px 4px 4px;
+}
+
+.row-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pill-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B716D;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-right: 2px;
+}
+
+.hint-text {
+  font-size: 12px;
+  line-height: 18px;
+  color: #6B716D;
+}
+
+.brush-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brush-row input[type=range] {
+  flex: 1 1 auto;
+  max-width: 260px;
+  accent-color: #000;
+}
+
+.brush-row .brush-val {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 36px;
+}
+
+/* ── Status bar text ── */
+.status-text { font-size: 12px; line-height: 18px; color: #6B716D; }
+.status-text strong { font-weight: 600; color: #000; }
+
+/* ── Buttons ── */
+button {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  border: none;
+  border-radius: 9999px;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: box-shadow 100ms cubic-bezier(.2,.8,.2,1), opacity 100ms;
+}
+
+button.pill-off {
+  background: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 1.5px #CCC;
+}
+
+button.pill-on {
+  background: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
+button.outline {
+  background: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 2px #000;
+}
+
+button.outline:hover { box-shadow: inset 0 0 0 3px #000; }
+
+button.solid {
+  background: #000;
+  color: #fff;
+}
+
+button.solid:hover { opacity: .85; }
+
+button.pill-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ── Panel cards ── */
+.panel-card {
+  background: #fff;
+  border: 1px solid #E5E5E5;
+  border-radius: 16px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.10);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+/* ── Add-color form ── */
+.add-color-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #FAFEFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.add-color-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.add-color-row input[type=color] {
+  width: 42px;
+  height: 34px;
+  border: 1px solid #CCC;
+  border-radius: 6px;
+  padding: 2px;
+  background: #fff;
+  cursor: pointer;
+  flex: none;
+}
+
+.add-color-row input[type=text] {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 7px 12px;
+  border: 1.5px solid #CCC;
+  border-radius: 12px;
+  outline: none;
+}
+
+/* ── Swatches ── */
+.swatch-group { display: flex; flex-direction: column; gap: 6px; }
+
+.swatch-group-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B716D;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.swatch-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.swatch-btn {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid rgba(0,0,0,.14);
+  transition: transform 100ms cubic-bezier(.2,.8,.2,1);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.swatch-btn:hover { transform: scale(1.12); }
+
+.swatch-x {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  pointer-events: none;
+}
+
+/* ── Selected chip ── */
+.panel-sel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6B716D;
+  padding-top: 2px;
+}
+
+.sel-chip {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.14);
+  flex: none;
+}
+
+/* ── Disclaimer ── */
+.disclaimer {
+  font-size: 12px;
+  line-height: 18px;
+  color: #6B716D;
+  padding: 0 4px;
+}

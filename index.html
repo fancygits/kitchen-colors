@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cabinet Color Visualizer</title>
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+<div class="layout">
+  <h1>New cabinets. <span class="highlight">Zero</span> paint fumes.</h1>
+  <p class="subtitle">Pick a finish for the uppers, the lowers, and the pulls — the photo repaints itself. (No drop cloths required.)</p>
+
+  <div class="main-row">
+    <div class="canvas-card">
+      <div class="angle-tabs" id="angleTabs" style="padding: 4px 4px 8px;"></div>
+
+      <canvas id="canvas" width="1024" height="993"></canvas>
+      <input type="file" id="fileInput" accept="image/*" style="display:none">
+
+      <div class="edit-section" id="editSection" style="display:none">
+        <div class="row-wrap">
+          <div class="pill-group">
+            <span class="group-label">Layer</span>
+            <div id="layerBtns"></div>
+          </div>
+          <div class="pill-group">
+            <span class="group-label">Tool</span>
+            <div id="toolBtns"></div>
+          </div>
+          <button id="loupeBtn" class="pill-on">Magnifier on</button>
+        </div>
+        <div class="brush-row" id="brushRow" style="display:none">
+          <span class="group-label">Eraser size</span>
+          <input type="range" id="brushRange" min="5" max="80" step="1" value="16">
+          <span class="brush-val" id="brushVal">16px</span>
+        </div>
+        <div class="pill-group" style="flex-wrap:wrap;gap:6px" id="actionBtns"></div>
+        <div class="hint-text" id="editHint"></div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-text" id="statusText"></div>
+        <div class="pill-group" style="flex-wrap:wrap">
+          <button class="outline" id="pickFileBtn">Replace photo</button>
+          <button class="outline" id="downloadBtn">Download JPG</button>
+          <button class="outline" id="editToggleBtn">Edit masks</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel" id="rightPanel"></div>
+  </div>
+</div>
+
+<script type="module" src="scripts/app.js"></script>
+</body>
+</html>
