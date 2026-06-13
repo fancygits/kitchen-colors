@@ -1,18 +1,37 @@
 // State: shared mutable state object, runtime constants, and DOM refs
 
-export const LAYERS = ['upper', 'lower', 'pulls'];
+export let LAYERS = ['upper', 'lower', 'pulls', 'shelves'];
 export const MAX_DIM = 1600;
+
+// Per-layer display metadata. Custom layers are added here at runtime.
+export const LAYER_META = {
+  upper:   { title: 'Upper cabinets', label: 'Uppers',  tintHex: '#C562FF', tint: [197,  98, 255], baseLum: 183, paletteKey: 'cabinet' },
+  lower:   { title: 'Lower cabinets', label: 'Lowers',  tintHex: '#2BC2A1', tint: [ 43, 194, 161], baseLum: 183, paletteKey: 'cabinet' },
+  pulls:   { title: 'Pulls & handles', label: 'Pulls',  tintHex: '#E4FF45', tint: [228, 255,  69], baseLum: null, paletteKey: 'pulls'   },
+  shelves: { title: 'Shelves',         label: 'Shelves', tintHex: '#FF9F0A', tint: [255, 159,  10], baseLum: 183, paletteKey: 'cabinet' },
+};
 
 export const st = {
   angle: 'gen1',
-  upper: 'original', lower: 'original', pulls: 'original',
+  upper: 'original', lower: 'original', pulls: 'original', shelves: 'original',
   editing: false, layer: 'upper', tool: 'draw',
   brushSize: 16, loupeOn: true,
-  collapsed: { upper: false, lower: false, pulls: false },
+  collapsed: { upper: false, lower: false, pulls: false, shelves: false },
   editPanel: null, addHex: '#888888', addName: '',
+  addingLayer: false, newLayerName: '', newLayerTint: '#FF6B6B',
   status: 'Loading…',
   palettes: null,
 };
+
+// Register a new custom mask layer at runtime.
+export function addCustomLayer(id, name, tintHex) {
+  const h = tintHex.replace('#', '');
+  const tint = [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+  LAYER_META[id] = { title: name, label: name, tintHex, tint, baseLum: null, paletteKey: id };
+  if (!LAYERS.includes(id)) LAYERS.push(id);
+  st[id] = 'original';
+  st.collapsed[id] = false;
+}
 
 // per-angle runtime data: angleId → { W, H, basePx, composed, masks, overlays, offCtx }
 export const angleData = {};

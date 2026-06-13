@@ -1,13 +1,13 @@
 // Compose: pixel-level color application — palette lookups, texture blending, mask compositing
 
-import { st, angleData } from './state.js';
+import { st, angleData, LAYERS, LAYER_META } from './state.js';
 import { lsSet } from './data.js';
 
 export function hexToRgb(hex) {
   return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
 }
 
-export function palKey(side) { return side === 'pulls' ? 'pulls' : 'cabinet'; }
+export function palKey(side) { return LAYER_META[side]?.paletteKey ?? side; }
 
 export function mergeTextureRefs(loaded, defaults) {
   const texMap = {};
@@ -119,9 +119,7 @@ export function applyMask(out, base, mask, hex, baseLum, W, H) {
 }
 
 export function tintFor(layer) {
-  if (layer === 'upper') return [197,98,255];
-  if (layer === 'lower') return [43,194,161];
-  return [228,255,69];
+  return LAYER_META[layer]?.tint ?? [200, 200, 200];
 }
 
 // repaintFn is passed in to avoid a circular import with render.js
@@ -129,21 +127,21 @@ export function composeBase(angleId, repaintFn) {
   const ad = angleData[angleId];
   if (!ad || !ad.basePx) return;
   const img = new ImageData(new Uint8ClampedArray(ad.basePx.data), ad.W, ad.H);
-  const u = findHex(st.upper, groupsFor('upper'));
-  const l = findHex(st.lower, groupsFor('lower'));
-  const p = findHex(st.pulls, groupsFor('pulls'));
-  if (u) applyMask(img.data, ad.basePx.data, ad.masks.upper, u.hex, 183, ad.W, ad.H);
-  if (l) applyMask(img.data, ad.basePx.data, ad.masks.lower, l.hex, 183, ad.W, ad.H);
-  if (p) applyMask(img.data, ad.basePx.data, ad.masks.pulls, p.hex, null, ad.W, ad.H);
-  [u, l, p].forEach((sw, i) => {
-    if (!sw?.texture) return;
-    const mask = [ad.masks.upper, ad.masks.lower, ad.masks.pulls][i];
-    if (sw.texture in textureCache) {
-      applyTexture(img.data, mask, textureCache[sw.texture], ad.W, ad.H);
-    } else {
-      loadTexture(sw.texture).then(tex => {
-        if (tex) { composeBase(angleId, repaintFn); if (repaintFn) repaintFn(); }
-      });
+  LAYERS.forEach(layer => {
+    const mask = ad.masks[layer];
+    if (!mask) return;
+    const sw = findHex(st[layer], groupsFor(layer));
+    if (!sw) return;
+    const baseLum = LAYER_META[layer]?.baseLum ?? null;
+    applyMask(img.data, ad.basePx.data, mask, sw.hex, baseLum, ad.W, ad.H);
+    if (sw.texture) {
+      if (sw.texture in textureCache) {
+        applyTexture(img.data, mask, textureCache[sw.texture], ad.W, ad.H);
+      } else {
+        loadTexture(sw.texture).then(tex => {
+          if (tex) { composeBase(angleId, repaintFn); if (repaintFn) repaintFn(); }
+        });
+      }
     }
   });
   if (!ad.composed) { ad.composed = document.createElement('canvas'); }

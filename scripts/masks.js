@@ -1,6 +1,6 @@
 // Masks: mask editing logic — polygon draw/erase, brush erase, undo, persist
 
-import { st, angleData, pts, history, setPts, setHistory, LAYERS } from './state.js';
+import { st, angleData, pts, history, setPts, setHistory, LAYERS, LAYER_META } from './state.js';
 import { ANGLES, loadImg } from './data.js';
 import { buildOverlay, composeBase, persistMask } from './compose.js';
 import { getAD, repaint } from './render.js';
@@ -65,9 +65,8 @@ export function drawSegment(a, b) {
     const x=a.x+(b.x-a.x)*s/steps, y=a.y+(b.y-a.y)*s/steps;
     drawCircle(m, x, y, r, ad.W, ad.H);
     if (ox) {
-      const layerColors = { upper:'rgba(197,98,255,', lower:'rgba(43,194,161,', pulls:'rgba(228,255,69,' };
-      const base = layerColors[st.layer] || 'rgba(255,255,255,';
-      ox.fillStyle = base+'0.6)';
+      const t = LAYER_META[st.layer]?.tint ?? [200,200,200];
+      ox.fillStyle = `rgba(${t[0]},${t[1]},${t[2]},0.6)`;
       ox.beginPath(); ox.arc(x,y,r,0,Math.PI*2); ox.fill();
     }
   }

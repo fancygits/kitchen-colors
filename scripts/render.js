@@ -1,6 +1,6 @@
 // Render: angle loading, canvas repaint, loupe magnifier
 
-import { st, angleData, pts, cursorPos, erasing, LAYERS, MAX_DIM, canvas, ctx } from './state.js';
+import { st, angleData, pts, cursorPos, erasing, LAYERS, LAYER_META, MAX_DIM, canvas, ctx } from './state.js';
 import { ANGLES, lsGet, idbGet, loadImg } from './data.js';
 import { composeBase, buildOverlay } from './compose.js';
 
@@ -34,12 +34,11 @@ export async function loadAngle(angleId) {
   const blob = await idbGet('photo-' + angleId).catch(() => null);
   const photoSrc = blob ? URL.createObjectURL(blob) : angle.photo;
 
-  const [photo, mu, ml, mp] = await Promise.all([
+  const maskImgs = await Promise.all([
     loadImg(photoSrc),
-    loadImg(maskSrc(angleId, 'upper')).catch(() => null),
-    loadImg(maskSrc(angleId, 'lower')).catch(() => null),
-    loadImg(maskSrc(angleId, 'pulls')).catch(() => null),
+    ...LAYERS.map(l => loadImg(maskSrc(angleId, l)).catch(() => null)),
   ]);
+  const photo = maskImgs[0];
   if (blob) URL.revokeObjectURL(photoSrc);
 
   const scale = Math.min(1, MAX_DIM / Math.max(photo.width, photo.height));
@@ -52,12 +51,20 @@ export async function loadAngle(angleId) {
   ad.offCtx.drawImage(photo, 0, 0, ad.W, ad.H);
   ad.basePx = ad.offCtx.getImageData(0, 0, ad.W, ad.H);
 
-  ad.masks.upper = toMaskArr(mu, ad.W, ad.H, ad.offCtx);
-  ad.masks.lower = toMaskArr(ml, ad.W, ad.H, ad.offCtx);
-  ad.masks.pulls = toMaskArr(mp, ad.W, ad.H, ad.offCtx);
+  LAYERS.forEach((l, i) => { ad.masks[l] = toMaskArr(maskImgs[i + 1], ad.W, ad.H, ad.offCtx); });
 
   composeBase(angleId, repaint);
   LAYERS.forEach(l => buildOverlay(angleId, l));
+}
+
+// Called when a custom layer is added after angles are already loaded.
+export function initLayerOnLoadedAngles(layerId) {
+  Object.keys(angleData).forEach(angleId => {
+    const ad = angleData[angleId];
+    if (!ad.basePx) return;
+    ad.masks[layerId] = new Uint8Array(ad.W * ad.H);
+    buildOverlay(angleId, layerId);
+  });
 }
 
 export function repaint() {

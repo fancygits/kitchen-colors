@@ -152,10 +152,10 @@ button.pill-dot {
   border: 1px solid #E5E5E5;
   border-radius: 16px;
   box-shadow: 0 4px 4px rgba(0,0,0,.10);
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .panel-header {
@@ -274,6 +274,17 @@ button.pill-dot {
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,.14);
   flex: none;
+}
+
+/* ── Add-mask button ── */
+.add-layer-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
 /* ── Disclaimer ── */

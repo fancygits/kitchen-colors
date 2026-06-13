@@ -1,6 +1,6 @@
 // Controls: render edit-mode controls, status bar, and top-level renderUI
 
-import { st, pts, history, editSection, editToggleBtn, loupeBtn, brushRow,
+import { st, pts, history, LAYERS, LAYER_META, editSection, editToggleBtn, loupeBtn, brushRow,
          layerBtnsEl, toolBtnsEl, actionBtnsEl, editHintEl, statusTextEl } from './state.js';
 import { groupsFor, findHex } from './compose.js';
 import { repaint } from './render.js';
@@ -33,14 +33,15 @@ function pill(label, on, onClick, extraClass='') {
 
 function renderLayerBtns() {
   layerBtnsEl.innerHTML='';
-  layerBtnsEl.style.cssText='display:flex;gap:6px';
-  [['upper','Uppers','#C562FF'],['lower','Lowers','#2BC2A1'],['pulls','Pulls','#E4FF45']].forEach(([id,label,dot])=>{
+  layerBtnsEl.style.cssText='display:flex;gap:6px;flex-wrap:wrap';
+  LAYERS.forEach(id=>{
+    const meta=LAYER_META[id]||{};
     const b=document.createElement('button');
     b.className=(st.layer===id?'pill-on':'pill-off')+' pill-dot';
     const dotEl=document.createElement('span');
-    dotEl.style.cssText=`width:9px;height:9px;border-radius:50%;background:${dot};border:1px solid rgba(0,0,0,.2);box-sizing:border-box;flex:none`;
+    dotEl.style.cssText=`width:9px;height:9px;border-radius:50%;background:${meta.tintHex||'#888'};border:1px solid rgba(0,0,0,.2);box-sizing:border-box;flex:none`;
     b.appendChild(dotEl);
-    b.appendChild(document.createTextNode(label));
+    b.appendChild(document.createTextNode(meta.label||id));
     b.addEventListener('click',()=>{
       import('./state.js').then(m=>{ m.setPts([]); });
       st.layer=id; renderUI(); repaint();
@@ -101,10 +102,14 @@ function renderEditHint() {
 
 function renderStatus() {
   const selOf = side => findHex(st[side], groupsFor(side));
-  const u=selOf('upper'), l=selOf('lower'), p=selOf('pulls');
   let status=st.status;
   if (st.editing && pts.length>0) status=pts.length+(pts.length===1?' point':' points')+(pts.length>=3?' — click the yellow point to close':'');
-  statusTextEl.innerHTML=`Uppers: <strong>${u?u.name:'Original'}</strong> &nbsp;·&nbsp; Lowers: <strong>${l?l.name:'Original'}</strong> &nbsp;·&nbsp; Pulls: <strong>${p?p.name:'Original'}</strong>${status?' &nbsp;&nbsp;'+status:''}`;
+  const parts = LAYERS.map(id => {
+    const meta = LAYER_META[id]||{};
+    const sw = selOf(id);
+    return `${meta.label||id}: <strong>${sw?sw.name:'Original'}</strong>`;
+  });
+  statusTextEl.innerHTML = parts.join(' &nbsp;·&nbsp; ') + (status ? ' &nbsp;&nbsp;'+status : '');
 }
 
 function renderEditToggleBtn() {

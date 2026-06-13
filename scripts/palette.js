@@ -1,15 +1,21 @@
 // Palette: add/delete colors, select swatches, persist palette state
 
-import { st, angleData } from './state.js';
+import { st, angleData, LAYERS } from './state.js';
 import { lsSet } from './data.js';
 import { palKey, groupsFor, composeBase } from './compose.js';
 import { repaint } from './render.js';
+
+function selectionObj() {
+  const sel = {};
+  LAYERS.forEach(l => { sel[l] = st[l]; });
+  return sel;
+}
 
 export function savePalettes(palettes, extraSt, renderUI) {
   st.palettes = palettes;
   if (extraSt) Object.assign(st, extraSt);
   lsSet('kitchen-colors-palettes', palettes);
-  lsSet('kitchen-colors-selection', { upper:st.upper, lower:st.lower, pulls:st.pulls });
+  lsSet('kitchen-colors-selection', selectionObj());
   renderUI();
 }
 
@@ -35,8 +41,7 @@ export function deleteColor(side, name, renderUI) {
     .map(g=>({name:g.name, swatches:g.swatches.filter(([nm])=>nm!==name)}))
     .filter(g=>g.swatches.length>0);
   const upd = {};
-  const sides = key==='pulls' ? ['pulls'] : ['upper','lower'];
-  sides.forEach(s => { if (st[s]===name) upd[s]='original'; });
+  LAYERS.filter(l => palKey(l)===key).forEach(l => { if (st[l]===name) upd[l]='original'; });
   savePalettes(palettes, upd, renderUI);
   Object.keys(angleData).forEach(id => { if (angleData[id].basePx) composeBase(id, repaint); });
   repaint();
@@ -44,7 +49,7 @@ export function deleteColor(side, name, renderUI) {
 
 export function select(side, id, renderUI) {
   st[side] = id;
-  lsSet('kitchen-colors-selection', { upper:st.upper, lower:st.lower, pulls:st.pulls });
+  lsSet('kitchen-colors-selection', selectionObj());
   Object.keys(angleData).forEach(angleId => {
     if (angleData[angleId].basePx) composeBase(angleId, repaint);
   });
