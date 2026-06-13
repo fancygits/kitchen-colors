@@ -1,0 +1,55 @@
+styles/components.css
+  s_7b1f35b8e0096c::t_c0db98b0844f6b 155,158
+  s_7b1f35b8e0096c::t_e2b67e146f69ea 279-289
+scripts/palette.js
+  s_7b1f35b8e0096c::t_c24b771f54a3b1 8-13,18
+  s_7b1f35b8e0096c::t_cc541efe2d92c7 52
+  s_7b1f35b8e0096c::t_cb68650ff59ef7 44
+  s_7b1f35b8e0096c::t_59c603e1e178de 3
+scripts/masks.js
+  s_7b1f35b8e0096c::t_3a20d83ae2752f 68-69
+  s_7b1f35b8e0096c::t_d34181f123733a 3
+styles/base.css
+  s_7b1f35b8e0096c::t_8f28a9e7c32987 9,15-16,19,29-30,32
+  s_7b1f35b8e0096c::t_16c86614206860 37,41-42,46-48
+scripts/panels.js
+  s_7b1f35b8e0096c::t_bc5d1d2a200690 3-4,6,36-42,51-60,138-140,147-201,206-228,246
+  s_7b1f35b8e0096c::t_cca62adb2a48cd 202-205
+scripts/app.js
+  s_7b1f35b8e0096c::t_07f09f58e528d2 3,21-32,38-41
+  s_7b1f35b8e0096c::t_c2cdffb7388034 46-48
+scripts/state.js
+  s_7b1f35b8e0096c::t_4665f771bcab84 3,8-11,16,19
+  s_7b1f35b8e0096c::t_dacf24dc2db4d7 6-7,12-13,21,26-34
+scripts/compose.js
+  s_7b1f35b8e0096c::t_c1b0c9774d4f21 122
+  s_7b1f35b8e0096c::t_124a1ec4d0ef4e 3
+  s_7b1f35b8e0096c::t_927c6ca4f21e03 10
+  s_7b1f35b8e0096c::t_222dcb6995871c 130-144
+scripts/controls.js
+  s_7b1f35b8e0096c::t_46d75262ef030f 3
+  s_7b1f35b8e0096c::t_b7cedc338415bb 36-38,42,44
+  s_7b1f35b8e0096c::t_0b940cd6e65ab6 107-112
+styles/layout.css
+  s_7b1f35b8e0096c::t_174a220e8a102f 16,19
+scripts/render.js
+  s_7b1f35b8e0096c::t_5282750fe93d03 3
+  s_7b1f35b8e0096c::t_b664cdc76aa283 37,39,41,54
+  s_7b1f35b8e0096c::t_ce8f8fd4513caa 60-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "039adf2a67411f22667530c67045e66a408e2546",
+  "prompts": {},
+  "sessions": {
+    "s_7b1f35b8e0096c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0262ffa4-2cac-4ada-bd19-99aed694db1d",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Luke Johnson <ljohnson@splashfinancial.com>"
+    }
+  }
+}
