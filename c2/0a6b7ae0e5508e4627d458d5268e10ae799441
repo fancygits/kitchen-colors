@@ -1,0 +1,19 @@
+scripts/compose.js
+  s_7b1f35b8e0096c::t_42f785cde1874a 130-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "c20a6b7ae0e5508e4627d458d5268e10ae799441",
+  "prompts": {},
+  "sessions": {
+    "s_7b1f35b8e0096c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0262ffa4-2cac-4ada-bd19-99aed694db1d",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Luke Johnson <ljohnson@splashfinancial.com>"
+    }
+  }
+}
