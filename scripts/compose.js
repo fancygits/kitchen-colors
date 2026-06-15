@@ -127,7 +127,9 @@ export function composeBase(angleId, repaintFn) {
   const ad = angleData[angleId];
   if (!ad || !ad.basePx) return;
   const img = new ImageData(new Uint8ClampedArray(ad.basePx.data), ad.W, ad.H);
-  LAYERS.forEach(layer => {
+  // Always composite pulls last so it renders on top of every other layer.
+  const renderOrder = [...LAYERS.filter(l => l !== 'pulls'), ...LAYERS.filter(l => l === 'pulls')];
+  renderOrder.forEach(layer => {
     const mask = ad.masks[layer];
     if (!mask) return;
     const sw = findHex(st[layer], groupsFor(layer));
